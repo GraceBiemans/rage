@@ -1,0 +1,3 @@
+{
+  "presets": ["@babel/preset-env"]  // This ensures modern JS syntax is supported
+}
