@@ -4,47 +4,63 @@
 
     <!-- Button to open the rules modal -->
     <button @click="showRules = true">Show Rules</button>
-
     <!-- RulesModal component, passing the visibility state -->
     <RulesModal :visible="showRules" @update:visible="showRules = $event" />
 
-    <Deck @deal-card="dealCard"/>
-    <Hand :hand="playerHand" @discard-card="discardCard" />
+    <Deck @deal-card="dealCard" @create-trump-pile="createTrumpPile"/>
+
+    <TrumpPile :cards="trumpPile"></TrumpPile>
+
+    <Player ref="player" :isOpponent="false"></Player>
+    <Player ref="opponent" :isOpponent="true"></Player>
+
   </div>
 </template>
 
 <script type="application/javascript">
-import { ref } from 'vue';
+import {ref} from 'vue';
 import Deck from './components/Deck.vue';
 import Hand from './components/Hand.vue';
 import RulesModal from "./components/RulesModal.vue";
+import TrumpPile from "./components/TrumpPile.vue";
+import Player from "./components/Player.vue";
 
 export default {
-  components: {RulesModal, Deck, Hand },
+  components: {Player, TrumpPile, RulesModal, Deck, Hand },
   data() {
     return {
-      // This controls the visibility of the modal
       showRules: false
     };
   },
   setup() {
-    const playerHand = ref([]);
+    const round = 1;
 
-    // Deal a card to the player
-    function dealCard(card) {
-      console.log(card);
-      playerHand.value.push(card);
-    }
+    const trumpPile = ref([]);
 
-    // Discard a card from the player's hand
-    function discardCard(card) {
-      const index = playerHand.value.indexOf(card);
-      if (index > -1) {
-        playerHand.value.splice(index, 1);
+    // Refs for Player components
+    const player = ref(null);
+    const opponent = ref(null);
+
+    function dealCard(card, playerType) {
+      if (playerType === 'player') {
+        if (player.value) {
+          player.value.hand.push(card);
+        }
+      } else {
+        if (opponent.value) {
+          opponent.value.hand.push(card);
+        }
       }
     }
 
-    return { playerHand, dealCard, discardCard };
+    // The remaining un-dealt cards go to the trump pile
+    function createTrumpPile(cards) {
+      cards.forEach(card => {
+        trumpPile.value.push(card)
+      });
+    }
+
+    return { trumpPile, dealCard, createTrumpPile, player, opponent };
   },
 };
 </script>

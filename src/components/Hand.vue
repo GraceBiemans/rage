@@ -1,19 +1,21 @@
 <template>
   <div class="hand">
-    <h2>Your Hand</h2>
+    <h2 v-if="isOpponent">Opponent Hand</h2>
+    <h2 v-else>Your Hand</h2>
+
     <div class="card" v-for="(card, index) in hand" :key="index">
       <span>{{ card.value }} of {{ card.color }}</span>
-      <button @click="discardCard(card)">Discard</button>
+      <button @click="discardCard(card, isOpponent)">Discard</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['hand'],
+  props: ['hand', 'isOpponent'],
   methods: {
-    discardCard(card) {
-      this.$emit('discard-card', card);
+    discardCard(card, isOpponent) {
+      this.$emit('discard-card', card, isOpponent);
     },
   },
 };

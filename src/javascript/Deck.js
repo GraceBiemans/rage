@@ -47,6 +47,7 @@ export class Deck {
 
     // Get the remaining cards in the deck
     getRemainingCards() {
-        return this.cards.length;
+        console.log(this.cards);
+        return this.cards;
     }
 }
