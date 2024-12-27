@@ -4,14 +4,17 @@
     <h2 v-else>Your Hand</h2>
 
     <div class="card" v-for="(card, index) in hand" :key="index">
-      <span>{{ card.value }} of {{ card.color }}</span>
+      <Card :value="card.value" :color="card.color"></Card>
       <button @click="discardCard(card, isOpponent)">Discard</button>
     </div>
   </div>
 </template>
 
 <script>
+import Card from "./Card.vue";
+
 export default {
+  components: {Card},
   props: ['hand', 'isOpponent'],
   methods: {
     discardCard(card, isOpponent) {

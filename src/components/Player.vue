@@ -18,6 +18,8 @@ export default {
 
     let bid = null;
 
+    let score = 0;
+
     // Discard a card from the player's hand
     function discardCard(card, isOpponent) {
       const index = hand.value.indexOf(card);

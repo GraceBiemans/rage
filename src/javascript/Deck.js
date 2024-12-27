@@ -21,13 +21,13 @@ export class Deck {
             });
         });
         for (let i = 0; i < 2; i++) {
-            this.cards.push(new Card('black', 'wild rage'));
-            this.cards.push(new Card('black', 'bonus rage'));
-            this.cards.push(new Card('black', 'mad rage'));
+            this.cards.push(new Card('black', 'Wild Rage'));
+            this.cards.push(new Card('black', 'Bonus Rage'));
+            this.cards.push(new Card('black', 'Mad Rage'));
         }
         for (let i = 0; i < 4; i++) {
-            this.cards.push(new Card('black', 'change rage'));
-            this.cards.push(new Card('black', 'out rage'));
+            this.cards.push(new Card('black', 'Change Rage'));
+            this.cards.push(new Card('black', 'Out Rage'));
         }
     }
 
