@@ -1,11 +1,14 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { VueLoaderPlugin } = require('vue-loader');  // Correct import for Vue 3
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { VueLoaderPlugin } from 'vue-loader';
 
-module.exports = {
+// Getting the directory name using import.meta.url
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+export default {
   entry: './src/main.js',  // Entry point for your app
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist'),  // Using __dirname
     filename: 'bundle.js',
   },
   module: {
@@ -32,13 +35,13 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './public/index.html',  // Path to your HTML template
+      template: './docs/index.html',  // Path to your HTML template
     }),
     new VueLoaderPlugin(),  // Correct usage of VueLoaderPlugin
   ],
   resolve: {
     alias: {
-        vue$: 'vue/dist/vue.esm-bundler.js',  // Full build of Vue 3
+      vue$: 'vue/dist/vue.esm-bundler.js',  // Full build of Vue 3
     },
     extensions: ['.js', '.vue', '.json'],  // Resolve these file types
   },
