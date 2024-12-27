@@ -7,7 +7,7 @@
     <!-- RulesModal component, passing the visibility state -->
     <RulesModal :visible="showRules" @update:visible="showRules = $event" />
 
-    <Deck @deal-card="dealCard" @create-trump-pile="createTrumpPile"/>
+    <Deck @deal-card="dealCard" @sort-hands="sortHands" @create-trump-pile="createTrumpPile"/>
 
     <TrumpPile :cards="trumpPile"></TrumpPile>
 
@@ -53,6 +53,11 @@ export default {
       }
     }
 
+    function sortHands() {
+      Hand.methods.sortCards(player.value.hand);
+      Hand.methods.sortCards(opponent.value.hand);
+    }
+
     // The remaining un-dealt cards go to the trump pile
     function createTrumpPile(cards) {
       cards.forEach(card => {
@@ -60,7 +65,7 @@ export default {
       });
     }
 
-    return { trumpPile, dealCard, createTrumpPile, player, opponent };
+    return { trumpPile, dealCard, sortHands, createTrumpPile, player, opponent };
   },
 };
 </script>

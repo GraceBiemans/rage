@@ -29,6 +29,8 @@ export default {
         this.$emit('deal-card', this.deck.dealCard(), 'opponent');
       }
 
+      this.$emit('sort-hands');
+
       this.$emit('create-trump-pile', this.deck.getRemainingCards());
     },
   },
