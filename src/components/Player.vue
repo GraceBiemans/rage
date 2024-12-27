@@ -1,4 +1,7 @@
 <template>
+  <div v-if="bid">
+    Bid: {{ bid }}
+  </div>
   <Hand :hand="hand" :is-opponent="isOpponent" @discard-card="discardCard" />
 </template>
 
@@ -13,6 +16,8 @@ export default {
   setup() {
     const hand = ref([]);
 
+    let bid = null;
+
     // Discard a card from the player's hand
     function discardCard(card, isOpponent) {
       const index = hand.value.indexOf(card);
@@ -21,7 +26,11 @@ export default {
       }
     }
 
-    return { hand, discardCard };
+    // function setBid(bid) {
+    //   bid = bid;
+    // }
+
+    return { hand, bid, discardCard };
   }
 }
 </script>

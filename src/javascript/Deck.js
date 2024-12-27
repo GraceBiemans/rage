@@ -29,7 +29,6 @@ export class Deck {
             this.cards.push(new Card('black', 'change rage'));
             this.cards.push(new Card('black', 'out rage'));
         }
-        console.log(this.cards);
     }
 
     // Shuffle the deck
@@ -47,7 +46,6 @@ export class Deck {
 
     // Get the remaining cards in the deck
     getRemainingCards() {
-        console.log(this.cards);
         return this.cards;
     }
 }

@@ -9,13 +9,28 @@
 </template>
 
 <script>
+import {onMounted, watch} from "vue";
+
 export default {
   props: ['cards'],
-  methods: {
-    // discardCard(card, isOpponent) {
-    //   this.$emit('discard-card', card, isOpponent);
-    // },
-  },
+  setup(props) {
+
+    // Return true if the card is an action card
+    function isActionCard(card) {
+      return !/\d/.test(card);
+    }
+
+    watch(() => props.cards, (newCards) => {
+      if (newCards && newCards.length > 0 && isActionCard(newCards[0].value)) {
+        console.log('Removing ' + props.cards[0].value + ' of ' + props.cards[0].color + ' from the trump pile.');
+        newCards.shift(); // Remove the first card if it is an Action card
+      }
+    }, { deep: true });
+
+    return {
+      cards: props.cards
+    };
+  }
 };
 </script>
 
