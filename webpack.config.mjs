@@ -8,7 +8,7 @@ const __dirname = path.dirname(new URL(import.meta.url).pathname);
 export default {
   entry: './src/main.js',  // Entry point for your app
   output: {
-    path: path.resolve(__dirname, 'dist'),  // Using __dirname
+    path: path.resolve(__dirname, 'docs'),  // Using __dirname
     filename: 'bundle.js',
   },
   module: {
