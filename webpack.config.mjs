@@ -8,7 +8,7 @@ const __dirname = path.dirname(new URL(import.meta.url).pathname);
 export default {
   entry: './src/main.js',  // Entry point for your app
   output: {
-    path: path.resolve(__dirname, 'docs'),  // Using __dirname
+    path: path.resolve(__dirname, ''),  // Using __dirname
     filename: 'bundle.js',
   },
   module: {
@@ -35,7 +35,7 @@ export default {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './docs/index.html',  // Path to your HTML template
+      template: './index.html',  // Path to your HTML template
     }),
     new VueLoaderPlugin(),  // Correct usage of VueLoaderPlugin
   ],

@@ -3,15 +3,17 @@
 
 <!--  <div v-for="(card, index) in cards" :key="index">-->
   <div v-if="cards[0]">
-    <span>{{ cards[0].value }} of {{ cards[0].color }}</span>
+    <Card :value="cards[0].value" :color="cards[0].color"></Card>
 <!--    <button @click="discardCard(card, isOpponent)">Discard</button>-->
   </div>
 </template>
 
 <script>
 import {onMounted, watch} from "vue";
+import Card from "./Card.vue";
 
 export default {
+  components: {Card},
   props: ['cards'],
   setup(props) {
 

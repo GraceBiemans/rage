@@ -1,4 +1,5 @@
 <template>
+  Test
   <div class="card" :style="{ backgroundColor: cardColor }">
     <div class="card-content">
       <span class="card-value">{{ value }}</span>
