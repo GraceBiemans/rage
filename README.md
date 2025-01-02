@@ -1,6 +1,7 @@
 # Rage
 
 `npm run dev` to start webpack
+`npm run build` to build
 Using webpack for dynamically viewing the developed content
 
 
