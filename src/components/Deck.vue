@@ -1,7 +1,7 @@
 <template>
   <div class="deck">
 <!--    <button @click="shuffleDeck">Shuffle</button>-->
-    <button @click="dealHands">Deal Hands</button>
+    <button @click="startGame">Start Game</button>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
     shuffleDeck() {
       this.deck.shuffle();
     },
-    dealHands() {
+    startGame() {
       // Deal hand to player
       for (let i = 0; i < 10; i++) {
         this.$emit('deal-card', this.deck.dealCard(), 'player');
@@ -32,6 +32,8 @@ export default {
       this.$emit('sort-hands');
 
       this.$emit('create-trump-pile', this.deck.getRemainingCards());
+
+      this.$emit('start-game');
     },
   },
 };

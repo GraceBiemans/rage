@@ -10,9 +10,7 @@
 export default {
   props: ['value', 'color'],
   computed: {
-    // Assign colors to card suits (you can adjust these as needed)
     cardColor() {
-      // 'yellow', 'green', 'blue', 'orange', 'red', 'purple'
       switch (this.color.toLowerCase()) {
         case 'red':
           return 'red';
@@ -47,6 +45,10 @@ export default {
   justify-content: center;
   padding: 10px;
   overflow: hidden;
+}
+
+.card.is-selected {
+  border: 2px solid green;
 }
 
 .card-content {

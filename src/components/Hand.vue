@@ -2,7 +2,7 @@
   <div :class="['hand', { 'opponent-hand': isOpponent }]">
     <div class="card" v-for="(card, index) in hand" :key="index" :style="cardStyle(index, isOpponent)">
       <Card :value="card.value" :color="card.color"></Card>
-      <button @click="discardCard(card, isOpponent)">Discard</button>
+      <button @click="playCard(card, isOpponent)">Play Card</button>
     </div>
   </div>
 </template>
@@ -14,8 +14,8 @@ export default {
   components: {Card},
   props: ['hand', 'isOpponent'],
   methods: {
-    discardCard(card, isOpponent) {
-      this.$emit('discard-card', card, isOpponent);
+    playCard(card, isOpponent) {
+      this.$emit('play-card', card, isOpponent);
     },
 
     sortCards(hand) {
@@ -44,6 +44,7 @@ export default {
         return valueA.localeCompare(valueB);
       });
     },
+
     cardStyle(index, isOpponent) {
       // Calculate the angle for each card to create a hand effect
       const spread = 10;  // Degree of spread
@@ -64,8 +65,6 @@ export default {
         topEquation *= -1;
       }
 
-      console.log(topEquation);
-
       return {
         top: `${ topEquation }px`,
         left: `${ leftEquation }px`,
@@ -73,6 +72,11 @@ export default {
         zIndex: this.hand.length - index, // Ensure cards at the back are stacked behind
       };
     },
+
+    getIndexByColor(hand) {
+      // const colorCards = hand.filter(card => card.color === color);
+      // console.log(hand.filter(card => card.color === 'purple'));
+    }
   },
 };
 </script>

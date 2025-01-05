@@ -10,7 +10,7 @@ class Hand {
     }
 
     // Discard a card (remove it from the hand)
-    discardCard(card) {
+    playCard(card) {
         const index = this.cards.indexOf(card);
         if (index > -1) {
             this.cards.splice(index, 1);

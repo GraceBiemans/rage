@@ -20,7 +20,6 @@ export default {
 
     watch(() => props.cards, (newCards) => {
       if (newCards && newCards.length > 0 && isActionCard(newCards[0].value)) {
-        console.log('Removing ' + props.cards[0].value + ' of ' + props.cards[0].color + ' from the trump pile.');
         newCards.shift(); // Remove the first card if it is an Action card
       }
     }, { deep: true });

@@ -1,8 +1,5 @@
 <template>
-  <div v-if="bid">
-    Bid: {{ bid }}
-  </div>
-  <Hand :hand="hand" :is-opponent="isOpponent" @discard-card="discardCard" />
+  <Hand :hand="hand" :is-opponent="isOpponent" @play-card="playCard" />
 </template>
 
 <script>
@@ -13,26 +10,28 @@ import {ref} from "vue";
 export default {
   components: {Hand},
   props: ['isOpponent'],
-  setup() {
+  setup(props, { emit }) {
     const hand = ref([]);
 
-    let bid = null;
-
-    let score = 0;
-
     // Discard a card from the player's hand
-    function discardCard(card, isOpponent) {
+    function playCard(card) {
       const index = hand.value.indexOf(card);
+      console.log(card);
       if (index > -1) {
         hand.value.splice(index, 1);
       }
+      emit('card-played', card);
     }
 
-    // function setBid(bid) {
-    //   bid = bid;
-    // }
+    function playTurn() {
+      setTimeout(() => {
+        Hand.methods.getIndexByColor(hand)
+        hand.value.splice(0, 1);
+        this.$emit('next-turn');
+      }, 1500)
+    }
 
-    return { hand, bid, discardCard };
+    return { hand, playCard, playTurn };
   }
 }
 </script>

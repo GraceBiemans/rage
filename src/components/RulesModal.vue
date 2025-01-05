@@ -24,6 +24,17 @@
           <div>In the first round, each player is dealt ten cards. With each card, a player could win a trick.</div>
           <div>In the second round, each player is dealt nine cards. In the third round, each player is dealt eight cards, then seven cards, etc., until the tenth and final round when each player receives only one card.</div>
         </li>
+
+        <li>
+          <b>Your Turn</b>
+          <div>Play any card that follows the suit. If it is not possible to follow suit, the player may play any card from their hand including a trump or action card.</div>
+        </li>
+
+        <li>
+          <b>Trick</b>
+          <div>Each player plays one card from their hand face up – this makes one trick.</div>
+          <div>The trick is won by the highest numbered card of the lead suit. But, if any trump cards are played in the trick, the trick has been trumped, and the highest trump card wins the trick</div>
+        </li>
       </ul>
     </div>
   </div>

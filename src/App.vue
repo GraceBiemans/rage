@@ -1,18 +1,25 @@
 <template>
   <div id="app">
-    <h1>Rage Card Game</h1>
+    <h1>Ryan's Rage</h1>
 
+    <div v-if="gameOver">
+      <h2>Game Over!</h2>
+    </div>
 
-    <button @click="showRules = true">Show Rules</button>
-    <RulesModal :visible="showRules" @update:visible="showRules = $event" />
+    <div v-else>
+      <button @click="showRules = true">Show Rules</button>
+      <RulesModal :visible="showRules" @update:visible="showRules = $event" />
 
-    <Deck @deal-card="dealCard" @sort-hands="sortHands" @create-trump-pile="createTrumpPile"/>
+      <Deck @deal-card="dealCard" @sort-hands="sortHands" @create-trump-pile="createTrumpPile" @start-game="startHand"/>
 
-    <Player ref="opponent" :isOpponent="true"></Player>
+      <Player ref="opponent" :isOpponent="true" @next-turn="startHand"></Player>
 
-    <TrumpPile :cards="trumpPile"></TrumpPile>
+      <TrumpPile :cards="trumpPile"></TrumpPile>
 
-    <Player ref="player" :isOpponent="false"></Player>
+      <div v-if="userTurn"><PlayerPrompt></PlayerPrompt></div>
+
+      <Player ref="player" :isOpponent="false" @card-played="cardPlayed"></Player>
+    </div>
 
   </div>
 </template>
@@ -24,16 +31,16 @@ import Hand from './components/Hand.vue';
 import RulesModal from "./components/RulesModal.vue";
 import TrumpPile from "./components/TrumpPile.vue";
 import Player from "./components/Player.vue";
+import PlayerPrompt from "./components/PlayerPrompt.vue";
 
 export default {
-  components: {Player, TrumpPile, RulesModal, Deck, Hand },
-  data() {
-    return {
-      showRules: false
-    };
-  },
+  components: {PlayerPrompt, Player, TrumpPile, RulesModal, Deck, Hand },
   setup() {
     const round = 1;
+
+    const showRules = ref(false);
+    const gameOver = ref(false);
+    const userTurn = ref(false);
 
     const trumpPile = ref([]);
 
@@ -65,7 +72,16 @@ export default {
       });
     }
 
-    return { trumpPile, dealCard, sortHands, createTrumpPile, player, opponent };
+    function startHand() {
+      userTurn.value = true;
+    }
+
+    function cardPlayed() {
+      userTurn.value = false;
+      opponent.value.playTurn();
+    }
+
+    return { trumpPile, dealCard, sortHands, createTrumpPile, startHand, cardPlayed, player, opponent, showRules, gameOver, userTurn };
   },
 };
 </script>
