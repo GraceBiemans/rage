@@ -2,17 +2,17 @@
   <div id="app">
     <h1>Rage Card Game</h1>
 
-    <!-- Button to open the rules modal -->
+
     <button @click="showRules = true">Show Rules</button>
-    <!-- RulesModal component, passing the visibility state -->
     <RulesModal :visible="showRules" @update:visible="showRules = $event" />
 
     <Deck @deal-card="dealCard" @sort-hands="sortHands" @create-trump-pile="createTrumpPile"/>
 
+    <Player ref="opponent" :isOpponent="true"></Player>
+
     <TrumpPile :cards="trumpPile"></TrumpPile>
 
     <Player ref="player" :isOpponent="false"></Player>
-    <Player ref="opponent" :isOpponent="true"></Player>
 
   </div>
 </template>

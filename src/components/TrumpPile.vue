@@ -1,10 +1,6 @@
 <template>
-  <h2>Trump Pile</h2>
-
-<!--  <div v-for="(card, index) in cards" :key="index">-->
-  <div v-if="cards[0]">
+  <div v-if="cards[0]" class="trumpPile">
     <Card :value="cards[0].value" :color="cards[0].color"></Card>
-<!--    <button @click="discardCard(card, isOpponent)">Discard</button>-->
   </div>
 </template>
 
@@ -37,4 +33,9 @@ export default {
 </script>
 
 <style scoped>
+.trumpPile {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 </style>

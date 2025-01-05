@@ -1,9 +1,6 @@
 <template>
-  <div class="hand">
-    <h2 v-if="isOpponent">Opponent Hand</h2>
-    <h2 v-else>Your Hand</h2>
-
-    <div class="card" v-for="(card, index) in hand" :key="index">
+  <div :class="['hand', { 'opponent-hand': isOpponent }]">
+    <div class="card" v-for="(card, index) in hand" :key="index" :style="cardStyle(index, isOpponent)">
       <Card :value="card.value" :color="card.color"></Card>
       <button @click="discardCard(card, isOpponent)">Discard</button>
     </div>
@@ -46,7 +43,36 @@ export default {
         // If both values are strings, sort alphabetically
         return valueA.localeCompare(valueB);
       });
-    }
+    },
+    cardStyle(index, isOpponent) {
+      // Calculate the angle for each card to create a hand effect
+      const spread = 10;  // Degree of spread
+      let angle = 0;
+
+      if (this.hand.length % 2 === 0) {
+        angle = (index + .5 - Math.floor(this.hand.length / 2)) * spread;
+      }
+      else {
+        angle = (index - Math.floor(this.hand.length / 2)) * spread;
+      }
+
+      let topEquation = Math.abs(angle) ** 2 / 10;
+      const leftEquation = Math.sign(angle * -1) * ((angle ** 2) / 12);
+
+      if (isOpponent) {
+        angle = angle + 180 + (angle * -2);
+        topEquation *= -1;
+      }
+
+      console.log(topEquation);
+
+      return {
+        top: `${ topEquation }px`,
+        left: `${ leftEquation }px`,
+        transform: `rotate(${ angle }deg)`,
+        zIndex: this.hand.length - index, // Ensure cards at the back are stacked behind
+      };
+    },
   },
 };
 </script>
@@ -54,10 +80,37 @@ export default {
 <style scoped>
 .hand {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;  /* Center the hand horizontally */
+  align-items: center;      /* Vertically align the cards */
+  margin-top: 20px;         /* Adjust the spacing as needed */
+  position: relative;       /* Positioning for overlap effect */
+  perspective: 1000px;      /* Add perspective for 3D effect */
 }
+
+.hand.opponent-hand {
+  margin-top: 120px;        /* Add extra top padding for opponent's hand */
+}
+
 .card {
-  margin: 5px;
+  position: relative;
+  transform: rotate(0deg);  /* Initial rotation (will be changed dynamically) */
+  transition: transform 0.3s ease;  /* Smooth transition when cards are moved */
+}
+
+button {
+  position: absolute;
+  bottom: -25px;            /* Position the discard button below the card */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  color: black;
+  border-color: black;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.card button:hover {
+  background-color: grey;
 }
 </style>
