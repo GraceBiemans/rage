@@ -74,4 +74,8 @@ export default {
 #app {
   text-align: center;
 }
+
+h1 {
+  color: white;
+}
 </style>

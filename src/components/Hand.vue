@@ -56,7 +56,7 @@ export default {
         angle = (index - Math.floor(this.hand.length / 2)) * spread;
       }
 
-      let topEquation = Math.abs(angle) ** 2 / 10;
+      let topEquation = Math.abs(angle) ** 2 / 13;
       const leftEquation = Math.sign(angle * -1) * ((angle ** 2) / 12);
 
       if (isOpponent) {
@@ -88,7 +88,7 @@ export default {
 }
 
 .hand.opponent-hand {
-  margin-top: 120px;        /* Add extra top padding for opponent's hand */
+  margin-top: 100px;        /* Add extra top padding for opponent's hand */
 }
 
 .card {
