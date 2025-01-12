@@ -60,11 +60,6 @@ export default {
       let topEquation = Math.abs(angle) ** 2 / 20;
       const leftEquation = Math.sign(angle * -1) * ((angle ** 2) / 17);
 
-      if (isOpponent) {
-        angle = angle + 180 + (angle * -2);
-        topEquation *= -1;
-      }
-
       return {
         top: `${ topEquation }px`,
         left: `${ leftEquation }px`,
