@@ -12,7 +12,10 @@
 
       <Deck @deal-card="dealCard" @sort-hands="sortHands" @create-trump-pile="createTrumpPile" @start-game="startHand"/>
 
-      <Player ref="opponent" :isOpponent="true" @next-turn="startHand"></Player>
+      <div style="justify-content: center; display: flex">
+        <Player ref="opponent1" player-type="opponent1" @next-turn="startHand"></Player>
+        <Player ref="opponent2" player-type="opponent2" @next-turn="startHand"></Player>
+      </div>
 
       <TrumpPile :cards="trumpPile"></TrumpPile>
 
@@ -46,23 +49,30 @@ export default {
 
     // Refs for Player components
     const player = ref(null);
-    const opponent = ref(null);
+    const opponent1 = ref(null);
+    const opponent2 = ref(null);
 
     function dealCard(card, playerType) {
       if (playerType === 'player') {
         if (player.value) {
           player.value.hand.push(card);
         }
-      } else {
-        if (opponent.value) {
-          opponent.value.hand.push(card);
+      } else if (playerType === 'opponent1') {
+        if (opponent1.value) {
+          opponent1.value.hand.push(card);
+        }
+      }
+      else if (playerType === 'opponent2') {
+        if (opponent2.value) {
+          opponent2.value.hand.push(card);
         }
       }
     }
 
     function sortHands() {
       Hand.methods.sortCards(player.value.hand);
-      Hand.methods.sortCards(opponent.value.hand);
+      Hand.methods.sortCards(opponent1.value.hand);
+      Hand.methods.sortCards(opponent2.value.hand);
     }
 
     // The remaining un-dealt cards go to the trump pile
@@ -78,10 +88,11 @@ export default {
 
     function cardPlayed() {
       userTurn.value = false;
-      opponent.value.playTurn();
+      opponent1.value.playTurn();
+      opponent2.value.playTurn();
     }
 
-    return { trumpPile, dealCard, sortHands, createTrumpPile, startHand, cardPlayed, player, opponent, showRules, gameOver, userTurn };
+    return { trumpPile, dealCard, sortHands, createTrumpPile, startHand, cardPlayed, player, opponent1, opponent2, showRules, gameOver, userTurn };
   },
 };
 </script>

@@ -1,8 +1,8 @@
 <template>
-  <div :class="['hand', { 'opponent-hand': isOpponent }]">
-    <div class="card" v-for="(card, index) in hand" :key="index" :style="cardStyle(index, isOpponent)">
+  <div :class="['hand', { 'opponent1': playerType === 'opponent1' }, { 'opponent2': playerType === 'opponent2' }]">
+    <div class="card" v-for="(card, index) in hand" :key="index" :style="cardStyle(index)">
       <Card :value="card.value" :color="card.color"></Card>
-      <button @click="playCard(card, isOpponent)">Play Card</button>
+      <button @click="playCard(card)">Play Card</button>
     </div>
   </div>
 </template>
@@ -12,10 +12,10 @@ import Card from "./Card.vue";
 
 export default {
   components: {Card},
-  props: ['hand', 'isOpponent'],
+  props: ['hand', 'playerType'],
   methods: {
-    playCard(card, isOpponent) {
-      this.$emit('play-card', card, isOpponent);
+    playCard(card) {
+      this.$emit('play-card', card);
     },
 
     sortCards(hand) {
@@ -45,7 +45,7 @@ export default {
       });
     },
 
-    cardStyle(index, isOpponent) {
+    cardStyle(index) {
       // Calculate the angle for each card to create a hand effect
       const spread = 10;  // Degree of spread
       let angle = 0;
@@ -57,8 +57,8 @@ export default {
         angle = (index - Math.floor(this.hand.length / 2)) * spread;
       }
 
-      let topEquation = Math.abs(angle) ** 2 / 13;
-      const leftEquation = Math.sign(angle * -1) * ((angle ** 2) / 12);
+      let topEquation = Math.abs(angle) ** 2 / 20;
+      const leftEquation = Math.sign(angle * -1) * ((angle ** 2) / 17);
 
       if (isOpponent) {
         angle = angle + 180 + (angle * -2);
@@ -91,8 +91,20 @@ export default {
   perspective: 1000px;      /* Add perspective for 3D effect */
 }
 
-.hand.opponent-hand {
+.hand.opponent1 {
   margin-top: 100px;        /* Add extra top padding for opponent's hand */
+  transform: rotate(150deg) scale(0.6);
+  transform-origin: center;  /* Make sure the scale happens from the center */
+  justify-self: flex-start;
+  width: 60%;
+}
+
+.hand.opponent2 {
+  margin-top: 100px;        /* Add extra top padding for opponent's hand */
+  transform: rotate(-150deg) scale(0.6);
+  transform-origin: center;  /* Make sure the scale happens from the center */
+  justify-self: flex-end;
+  width: 60%;
 }
 
 .card {

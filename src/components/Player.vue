@@ -1,5 +1,5 @@
 <template>
-  <Hand :hand="hand" :is-opponent="isOpponent" @play-card="playCard" />
+  <Hand :hand="hand" :playerType="playerType" @play-card="playCard" />
 </template>
 
 <script>
@@ -9,7 +9,7 @@ import {ref} from "vue";
 
 export default {
   components: {Hand},
-  props: ['isOpponent'],
+  props: ['playerType'],
   setup(props, { emit }) {
     const hand = ref([]);
 

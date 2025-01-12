@@ -26,7 +26,12 @@ export default {
 
       // Deal hand to opponent
       for (let i = 0; i < 10; i++) {
-        this.$emit('deal-card', this.deck.dealCard(), 'opponent');
+        this.$emit('deal-card', this.deck.dealCard(), 'opponent1');
+      }
+
+      // Deal hand to opponent 1
+      for (let i = 0; i < 10; i++) {
+        this.$emit('deal-card', this.deck.dealCard(), 'opponent2');
       }
 
       this.$emit('sort-hands');
