@@ -36,5 +36,6 @@ export default {
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  align-items: flex-end;
 }
 </style>

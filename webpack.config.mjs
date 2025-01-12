@@ -10,7 +10,7 @@ export default {
   output: {
     path: path.resolve(__dirname),  // Using __dirname
     filename: 'bundle.js',
-    publicPath: '/rage/',
+    publicPath: '/',
   },
   module: {
     rules: [

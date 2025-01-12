@@ -12,16 +12,15 @@
 
       <Deck @deal-card="dealCard" @sort-hands="sortHands" @create-trump-pile="createTrumpPile" @start-game="startHand"/>
 
-      <div style="justify-content: center; display: flex">
+      <div style="display: flex; justify-content: center; height: 300px; width: 100%">
         <Player ref="opponent1" player-type="opponent1" @next-turn="startHand"></Player>
+        <TrumpPile :cards="trumpPile"></TrumpPile>
         <Player ref="opponent2" player-type="opponent2" @next-turn="startHand"></Player>
       </div>
 
-      <TrumpPile :cards="trumpPile"></TrumpPile>
-
       <div v-if="userTurn"><PlayerPrompt></PlayerPrompt></div>
 
-      <Player ref="player" :isOpponent="false" @card-played="cardPlayed"></Player>
+      <Player ref="player" player-type="player" @card-played="cardPlayed"></Player>
     </div>
 
   </div>

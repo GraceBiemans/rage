@@ -90,16 +90,18 @@ export default {
   margin-top: 100px;        /* Add extra top padding for opponent's hand */
   transform: rotate(150deg) scale(0.6);
   transform-origin: center;  /* Make sure the scale happens from the center */
-  justify-self: flex-start;
   width: 60%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .hand.opponent2 {
   margin-top: 100px;        /* Add extra top padding for opponent's hand */
   transform: rotate(-150deg) scale(0.6);
   transform-origin: center;  /* Make sure the scale happens from the center */
-  justify-self: flex-end;
   width: 60%;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .card {
