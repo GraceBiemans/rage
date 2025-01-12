@@ -13,14 +13,14 @@
       <Deck @deal-card="dealCard" @sort-hands="sortHands" @create-trump-pile="createTrumpPile" @start-game="startHand"/>
 
       <div style="display: flex; justify-content: center; height: 300px; width: 100%">
-        <Player ref="opponent1" player-type="opponent1" @next-turn="startHand"></Player>
+        <Player ref="opponent1" player-type="opponent1"></Player>
         <TrumpPile :cards="trumpPile"></TrumpPile>
-        <Player ref="opponent2" player-type="opponent2" @next-turn="startHand"></Player>
+        <Player ref="opponent2" player-type="opponent2"></Player>
       </div>
 
       <div v-if="userTurn"><PlayerPrompt></PlayerPrompt></div>
 
-      <Player ref="player" player-type="player" @card-played="cardPlayed"></Player>
+      <Player ref="player" player-type="player" @card-played="playOpponentCards"></Player>
     </div>
 
   </div>
@@ -85,13 +85,31 @@ export default {
       userTurn.value = true;
     }
 
-    function cardPlayed() {
+    function playOpponentCards() {
       userTurn.value = false;
-      opponent1.value.playTurn();
-      opponent2.value.playTurn();
+
+      setTimeout(() => {
+        opponent1.value.playTurn();
+      }, 200)
+
+      setTimeout(() => {
+        opponent2.value.playTurn();
+      }, 1500)
+
+      setTimeout(() => {
+        clearPlayedCards();
+      }, 5000);
     }
 
-    return { trumpPile, dealCard, sortHands, createTrumpPile, startHand, cardPlayed, player, opponent1, opponent2, showRules, gameOver, userTurn };
+    function clearPlayedCards() {
+      player.value.clearPlayedCard();
+      opponent1.value.clearPlayedCard();
+      opponent2.value.clearPlayedCard();
+
+      startHand();
+    }
+
+    return { trumpPile, dealCard, sortHands, createTrumpPile, startHand, playOpponentCards, player, opponent1, opponent2, showRules, gameOver, userTurn };
   },
 };
 </script>

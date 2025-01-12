@@ -50,11 +50,15 @@ export default {
       setTimeout(() => {
         Hand.methods.getIndexByColor(hand)
         playedCard.value = hand.value.splice(0, 1)[0];
-        this.$emit('next-turn');
       }, 1500)
     }
 
-    return { hand, playedCard, playCard, playTurn };
+    function clearPlayedCard() {
+      console.log("CLEAR");
+      playedCard.value = null;
+    }
+
+    return { hand, playedCard, playCard, playTurn, clearPlayedCard };
   }
 }
 </script>
