@@ -1,7 +1,7 @@
 <template>
-  <div class="card" :style="{ backgroundColor: cardColor }">
-    <div class="oval"></div>
-    <div class="card-content">
+  <div class="card" :style="{ backgroundColor: isOpponentCard ? 'black' : cardColor }">
+    <div v-if="!isOpponentCard" class="oval"></div>
+    <div v-if="!isOpponentCard" class="card-content">
       <div v-if="cardColor === 'black'">
         <span class="card-value action" :style="{ color: cardColor }">{{ value }}</span>
       </div>
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  props: ['value', 'color'],
+  props: ['value', 'color', 'isOpponentCard'],
   computed: {
     cardColor() {
       switch (this.color.toLowerCase()) {

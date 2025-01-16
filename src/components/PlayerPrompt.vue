@@ -10,7 +10,7 @@
 
 <style scoped>
 h2 {
-  color: white;
+  color: lightgrey;
 }
 
 </style>

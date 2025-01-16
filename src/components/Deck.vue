@@ -1,7 +1,7 @@
 <template>
   <div class="deck">
 <!--    <button @click="shuffleDeck">Shuffle</button>-->
-    <button @click="startGame">Start Game</button>
+    <button v-if="buttonVisible" @click="startGame">Start Game</button>
   </div>
 </template>
 
@@ -12,6 +12,7 @@ export default {
   data() {
     return {
       deck: new Deck(),
+      buttonVisible: true,
     };
   },
   methods: {
@@ -19,17 +20,19 @@ export default {
       this.deck.shuffle();
     },
     startGame() {
+      this.buttonVisible = false;
+
       // Deal hand to player
       for (let i = 0; i < 10; i++) {
         this.$emit('deal-card', this.deck.dealCard(), 'player');
       }
 
-      // Deal hand to opponent
+      // Deal hand to opponent 1
       for (let i = 0; i < 10; i++) {
         this.$emit('deal-card', this.deck.dealCard(), 'opponent1');
       }
 
-      // Deal hand to opponent 1
+      // Deal hand to opponent 2
       for (let i = 0; i < 10; i++) {
         this.$emit('deal-card', this.deck.dealCard(), 'opponent2');
       }

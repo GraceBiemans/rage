@@ -1,8 +1,8 @@
 <template>
   <div :class="['hand', { 'opponent1': playerType === 'opponent1' }, { 'opponent2': playerType === 'opponent2' }]">
     <div class="card" v-for="(card, index) in hand" :key="index" :style="cardStyle(index)">
-      <Card :value="card.value" :color="card.color"></Card>
-      <button @click="playCard(card)">Play Card</button>
+      <Card :value="card.value" :color="card.color" :is-opponent-card="playerType === 'opponent1' || playerType === 'opponent2'"></Card>
+      <button v-if="playerType === 'player'" @click="playCard(card)">Play Card</button>
     </div>
   </div>
 </template>
@@ -67,11 +67,6 @@ export default {
         zIndex: this.hand.length - index, // Ensure cards at the back are stacked behind
       };
     },
-
-    getIndexByColor(hand) {
-      // const colorCards = hand.filter(card => card.color === color);
-      // console.log(hand.filter(card => card.color === 'purple'));
-    }
   },
 };
 </script>
@@ -115,7 +110,7 @@ button {
   bottom: -25px;            /* Position the discard button below the card */
   left: 50%;
   transform: translateX(-50%);
-  background-color: white;
+  background-color: lightgrey;
   color: black;
   border-color: black;
   padding: 5px 10px;
